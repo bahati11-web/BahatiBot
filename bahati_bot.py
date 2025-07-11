@@ -47,7 +47,7 @@ def lancer_wpcleaner(page_title):
         print(f"Erreur lors du lancement de WPCleaner sur {page_title} : {e}")
 
 def traiter_modifications_recentes(nb=10):
-    for change in site.recentchanges(namespace=0, total=nb, reverse=True):
+    for change in site.recentchanges(namespaces=[0], total=nb, reverse=True):
         titre = change.get('title')
         print(f"Traitement de la page : {titre}")
         corriger_orthographe(titre)
