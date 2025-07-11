@@ -37,7 +37,8 @@ def lancer_wpcleaner(page_title):
         '-user', 'Bahatispam',
         '-password', password,
         '-action', 'fix',
-        '-page', page_title
+        '-page', page_title,
+        '-config', 'config.properties'
     ]
     try:
         subprocess.run(commande, check=True)
