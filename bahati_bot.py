@@ -58,11 +58,10 @@ def lancer_wpcleaner(page_title):
         '-config', 'config.properties'
     ]
     try:
-        subprocess.run(commande, check=True)
-        print(f"WPCleaner lancé avec succès sur : {page_title}")
-    except subprocess.CalledProcessError as e:
-        print(f"Erreur lors du lancement de WPCleaner sur {page_title} : {e}")
-
+    subprocess.run(commande, check=True)
+    print(f"WPCleaner lancé avec succès sur : {page_title}")
+except subprocess.CalledProcessError as e:
+    print(f"Erreur lors du lancement de WPCleaner sur {page_title} : {e}")
 def traiter_modifications_recentes(nb=10):
     for change in site.recentchanges(namespaces=[0], total=nb, reverse=True):
         titre = change.get('title')
