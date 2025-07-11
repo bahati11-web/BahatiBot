@@ -3,10 +3,11 @@ import language_tool_python
 import re
 import subprocess
 import os
-
+import pywikibot
+site = pywikibot.Site()  # Utilise les paramètres de user-config.py
+site.login()             # Se connecte automatiquement avec user.password
 site = pywikibot.Site('fr', 'wikipedia')
 tool = language_tool_python.LanguageTool('fr-FR')
-
 def corriger_orthographe(titre):
     page = pywikibot.Page(site, titre)
     if not page.exists():
