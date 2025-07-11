@@ -1,9 +1,9 @@
 name: Exécuter BahatiBot chaque jour
 
 on:
-  workflow_dispatch:  # Permet de lancer le bot manuellement
+  workflow_dispatch:  # Permet de lancer manuellement
   schedule:
-    - cron: '0 * * * *'  # Chaque heure
+    - cron: '0 * * * *'  # Exécute chaque heure
 
 jobs:
   run-bot:
@@ -18,7 +18,7 @@ jobs:
       with:
         python-version: '3.11'
 
-    - name: Installer les dépendances
+    - name: Installer les dépendances Python
       run: pip install beautifulsoup4 requests
 
     - name: Lancer le bot
