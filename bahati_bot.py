@@ -18,8 +18,6 @@ site = pywikibot.Site('fr', 'wikipedia')
 
 # Connexion sans demande interactive
 try:
-    site.login()
-    print(f"Connecté en tant que : {site.user()}")
 except Exception as e:
     print(f"Erreur lors de la connexion : {e}")
     exit(1)
