@@ -1,27 +1,26 @@
-name: Exécuter BahatiBot chaque jour
+name: Run BahatiBot Script
 
 on:
-  workflow_dispatch:  # Permet de lancer manuellement
+  workflow_dispatch:
   schedule:
-    - cron: '0 * * * *'  # Exécute chaque heure
+    - cron: '0 * * * *'  # toutes les heures
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Cloner le dépôt
-      uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Configurer Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
 
-    - name: Installer les dépendances Python
-      run: pip install beautifulsoup4 requests pywikibot language_tool_python
+      - name: Install dependencies
+        run: pip install pywikibot language_tool_python
 
-    - name: Lancer le bot
-      env:
-        BOT_PASSWORD: ${{ secrets.BOT_PASSWORD }}
-      run: python bahati_bot.py
+      - name: Run BahatiBot
+        env:
+          BOT_PASSWORD: ${{ secrets.BOT_PASSWORD }}
+        run: python bahati_bot.py
