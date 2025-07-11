@@ -1,25 +1,24 @@
 import os
 import pywikibot
-from pywikibot import config2
 import language_tool_python
 import re
 import subprocess
 
-# Récupérer le mot de passe du bot depuis la variable d'environnement
+# Récupérer le mot de passe depuis la variable d'environnement
 bot_password = os.getenv('BOT_PASSWORD')
 if not bot_password:
     print("Erreur : la variable d'environnement BOT_PASSWORD n'est pas définie.")
     exit(1)
 
-# Configuration Pywikibot pour authentification automatique sans prompt
-config2.authenticate = {
-    ('wikipedia', 'fr'): ('Bahatispam', bot_password)
+# Authentification via passwords dict (recommandée dans les scripts automatisés)
+pywikibot.config.password_file = None
+pywikibot.config.usernames['wikipedia']['fr'] = 'Bahatispam'
+pywikibot.config.passwords = {
+    ('wikipedia', 'fr', 'Bahatispam'): (bot_password, None)
 }
 
-# Initialiser le site
 site = pywikibot.Site('fr', 'wikipedia')
 
-# Initialiser LanguageTool pour correction orthographique en français
 tool = language_tool_python.LanguageTool('fr-FR')
 
 def corriger_orthographe(titre):
