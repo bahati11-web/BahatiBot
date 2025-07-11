@@ -7,9 +7,9 @@ import subprocess
 # Charger la variable d'environnement BOT_PASSWORD
 bot_password = os.getenv('BOT_PASSWORD')
 
-# Configuration de Pywikibot (éviter la demande interactive)
+# Configuration de Pywikibot
 pywikibot.config.usernames['wikipedia']['fr'] = 'Bahatispam'
-pywikibot.config.password_file = None  # Ne pas utiliser de fichier password
+pywikibot.config.password_file = None
 pywikibot.config.passwords = {
     ('wikipedia', 'fr', 'Bahatispam'): (bot_password, None),
 }
@@ -18,6 +18,7 @@ site = pywikibot.Site('fr', 'wikipedia')
 
 # Connexion sans demande interactive
 try:
+    site.login()
 except Exception as e:
     print(f"Erreur lors de la connexion : {e}")
     exit(1)
@@ -58,10 +59,11 @@ def lancer_wpcleaner(page_title):
         '-config', 'config.properties'
     ]
     try:
-    subprocess.run(commande, check=True)
-    print(f"WPCleaner lancé avec succès sur : {page_title}")
-except subprocess.CalledProcessError as e:
-    print(f"Erreur lors du lancement de WPCleaner sur {page_title} : {e}")
+        subprocess.run(commande, check=True)
+        print(f"WPCleaner lancé avec succès sur : {page_title}")
+    except subprocess.CalledProcessError as e:
+        print(f"Erreur lors du lancement de WPCleaner sur {page_title} : {e}")
+
 def traiter_modifications_recentes(nb=10):
     for change in site.recentchanges(namespaces=[0], total=nb, reverse=True):
         titre = change.get('title')
@@ -70,4 +72,4 @@ def traiter_modifications_recentes(nb=10):
         lancer_wpcleaner(titre)
 
 if __name__ == "__main__":
-    traiter_modifications_recentes(10)
+    traiter_modifications_recentes(10)￼Enter
