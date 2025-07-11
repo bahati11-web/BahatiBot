@@ -1,0 +1,26 @@
+name: Run BahatiBot Script
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'  # toutes les heures
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pywikibot language_tool_python
+
+      - name: Run BahatiBot
+        env:
+          BOT_PASSWORD: ${{ secrets.BOT_PASSWORD }}
+        run: python bahati_bot.py
