@@ -1,1 +1,0 @@
-usernames['wikipedia']['fr'] = 'Bahatispam'
