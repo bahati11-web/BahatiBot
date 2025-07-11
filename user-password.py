@@ -1,2 +1,3 @@
-username = "Bahatispam"
-password = "Muwandaw1@"
+passwords = {
+    ('wikipedia', 'fr', 'Bahatispam'): ('Muwandaw1@', None),
+}
