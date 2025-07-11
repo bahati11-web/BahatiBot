@@ -1,28 +1,25 @@
 import os
 import pywikibot
+from pywikibot import config2
 import language_tool_python
 import re
 import subprocess
 
-# Charger la variable d'environnement BOT_PASSWORD
+# Récupérer le mot de passe du bot depuis la variable d'environnement
 bot_password = os.getenv('BOT_PASSWORD')
-
-# Configuration de Pywikibot
-pywikibot.config.usernames['wikipedia']['fr'] = 'Bahatispam'
-pywikibot.config.password_file = None
-pywikibot.config.passwords = {
-    ('wikipedia', 'fr', 'Bahatispam'): (bot_password, None),
-}
-
-site = pywikibot.Site('fr', 'wikipedia')
-
-# Connexion sans demande interactive
-try:
-    site.login()
-except Exception as e:
-    print(f"Erreur lors de la connexion : {e}")
+if not bot_password:
+    print("Erreur : la variable d'environnement BOT_PASSWORD n'est pas définie.")
     exit(1)
 
+# Configuration Pywikibot pour authentification automatique sans prompt
+config2.authenticate = {
+    ('wikipedia', 'fr'): ('Bahatispam', bot_password)
+}
+
+# Initialiser le site
+site = pywikibot.Site('fr', 'wikipedia')
+
+# Initialiser LanguageTool pour correction orthographique en français
 tool = language_tool_python.LanguageTool('fr-FR')
 
 def corriger_orthographe(titre):
@@ -48,12 +45,11 @@ def corriger_syntaxe(text):
     return text
 
 def lancer_wpcleaner(page_title):
-    password = bot_password
     commande = [
         'java', '-jar', 'WPCleaner.jar',
         '-language', 'fr',
         '-user', 'Bahatispam',
-        '-password', password,
+        '-password', bot_password,
         '-action', 'fix',
         '-page', page_title,
         '-config', 'config.properties'
