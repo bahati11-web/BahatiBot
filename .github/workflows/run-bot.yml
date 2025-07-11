@@ -19,7 +19,7 @@ jobs:
         python-version: '3.11'
 
     - name: Installer les dépendances Python
-      run: pip install beautifulsoup4 requests pywikibot
+      run: pip install beautifulsoup4 requests pywikibot language_tool_python
 
     - name: Lancer le bot
       env:
