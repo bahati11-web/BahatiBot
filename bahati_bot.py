@@ -72,4 +72,4 @@ def traiter_modifications_recentes(nb=10):
         lancer_wpcleaner(titre)
 
 if __name__ == "__main__":
-    traiter_modifications_recentes(10)￼Enter
+    traiter_modifications_recentes(10)
